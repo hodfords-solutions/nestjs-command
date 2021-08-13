@@ -1,0 +1,73 @@
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Post, Put } from '@nestjs/common';
+import { BaseController } from '~core/http/controllers/base.controller';
+import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { $$CLASS$$Service } from '../../services/$$FILENAME$$.service';
+import { Create$$CLASS$$Dto } from '../dto/create-$$FILENAME$$.dto';
+import { Pagination, PaginationParams } from '~core/decorators/pagination.decorator';
+import { Id } from '~core/decorators/id.decorator';
+
+@Controller('REPLACE_IT')
+@ApiTags('$$CLASS$$')
+export class $$CLASS$$Controller extends BaseController {
+    constructor(private $$PROPERTY$$Service: $$CLASS$$Service) {
+        super();
+    }
+
+    @Get()
+    @ApiOperation({
+        description: 'Get list $$PROPERTY$$'
+    })
+    async index(@Pagination() page: PaginationParams) {
+        return await this.$$PROPERTY$$Service.list(page);
+    }
+
+    @Get(':id')
+    @ApiParam({
+        name: 'id',
+        description: '$$CLASS$$ id',
+        type: 'string'
+    })
+    @ApiOperation({
+        description: 'Get detail of $$PROPERTY$$'
+    })
+    async show(@Id() id: string) {
+        return await this.$$PROPERTY$$Service.findById(id);
+    }
+
+    @Post()
+    @ApiOperation({
+        description: 'Create an $$PROPERTY$$'
+    })
+    @HttpCode(HttpStatus.CREATED)
+    async create(@Body() dto: Create$$CLASS$$Dto) {
+        return await this.$$PROPERTY$$Service.create(dto);
+    }
+
+    @Put(':id')
+    @ApiParam({
+        name: 'id',
+        description: '$$CLASS$$ id',
+        type: 'string'
+    })
+    @ApiOperation({
+        description: 'Update an $$PROPERTY$$'
+    })
+    @HttpCode(HttpStatus.NO_CONTENT)
+    async update(@Body() dto: Create$$CLASS$$Dto, @Id() id: string) {
+        return await this.$$PROPERTY$$Service.update(id, dto);
+    }
+
+    @Delete(':id')
+    @ApiParam({
+        name: 'id',
+        description: '$$CLASS$$ id',
+        type: 'string'
+    })
+    @ApiOperation({
+        description: 'Destroy an $$PROPERTY$$'
+    })
+    @HttpCode(HttpStatus.NO_CONTENT)
+    async destroy(@Id() id: string) {
+        return await this.$$PROPERTY$$Service.destroy(id);
+    }
+}
