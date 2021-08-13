@@ -1,0 +1,11 @@
+import { TestHelper } from '~core/tests/test.helper';
+import { HttpStatus } from '@nestjs/common';
+
+describe('$$CLASS$$ (e2e)', () => {
+    let testHelper = new TestHelper();
+
+    beforeAll(async () => {
+        await testHelper.initialize();
+    });
+
+});

@@ -1,0 +1,13 @@
+import { Module } from '@nestjs/common';
+import { EnterpriseController } from './http/controllers/enterprise.controller';
+import { EnterpriseRepository } from './repositories/enterprise.repository';
+import { EnterpriseEntity } from './entities/enterprise.entity';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { EnterpriseService } from './services/enterprise.service';
+
+@Module({
+    providers: [EnterpriseService],
+    controllers: [EnterpriseController],
+    imports: [TypeOrmModule.forFeature([EnterpriseRepository, EnterpriseEntity])]
+})
+export class EnterpriseModule {}

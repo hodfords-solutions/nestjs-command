@@ -1,0 +1,5 @@
+import { Entity } from 'typeorm';
+import { BaseEntity } from '~core/entities/base.entity';
+
+@Entity('$$CLASS$$')
+export class $$CLASS$$Entity extends BaseEntity {}

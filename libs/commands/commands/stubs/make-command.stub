@@ -1,0 +1,17 @@
+import { BaseCommand } from '@app/wz-command/decorator/command.decorator';
+import { Injectable } from '@nestjs/common';
+import { BaseCommand } from '@app/wz-command/commands/wz-command';
+
+@BaseCommand({
+  signature: '$$COMMAND$$',
+  description: 'Description for command',
+  params: {
+    // Description for command args
+  },
+})
+@Injectable()
+export class $$CLASS$$BaseCommand extends BaseCommand {
+  public handle() {
+    // Do something here
+  }
+}
