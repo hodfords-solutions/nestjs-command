@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { BaseMakeCommand } from './base-make-command';
 import { Command } from '../decorators/command.decorator';
+import { resolve } from 'path';
 
 @Command({
-    signature: 'make-controller <name>',
-    description: 'Make a controller',
+    signature: 'make-repository <name>',
+    description: 'Make a repository',
     options: [
         {
             value: '--module <module>',
@@ -13,9 +14,9 @@ import { Command } from '../decorators/command.decorator';
     ]
 })
 @Injectable()
-export class MakeControllerCommand extends BaseMakeCommand {
+export class MakeRepositoryCommand extends BaseMakeCommand {
     public getStub() {
-        return __dirname + '/stubs/modules/http/controllers/controller.stub';
+        return resolve(__dirname, '../stubs/modules/repositories/repository.stub');
     }
 
     public handle() {
@@ -35,7 +36,7 @@ export class MakeControllerCommand extends BaseMakeCommand {
                 value: this.getFileName(name)
             }
         ]);
-        this.writeFileToModule('http/controllers', `${name}.controller.ts`);
-        this.success(`Create controller ${name} successfully!`);
+        this.writeFileToModule('repositories', `${name}.repository.ts`);
+        this.success(`Create repository ${name} successfully!`);
     }
 }
