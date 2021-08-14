@@ -4,7 +4,7 @@ import { Command } from '../decorators/command.decorator';
 
 @Command({
     signature: 'make-controller <name>',
-    description: 'Make a service',
+    description: 'Make a controller',
     options: [
         {
             value: '--module <module>',
@@ -36,6 +36,6 @@ export class MakeControllerCommand extends BaseMakeCommand {
             }
         ]);
         this.writeFileToModule('http/controllers', `${name}.controller.ts`);
-        this.success(`Create service ${name} successfully!`);
+        this.success(`Create controller ${name} successfully!`);
     }
 }
