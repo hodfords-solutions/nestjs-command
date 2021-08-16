@@ -4,7 +4,7 @@ import { Command } from '../decorators/command.decorator';
 
 @Command({
     signature: 'make-entity <name>',
-    description: 'Make a entity',
+    description: 'Make an entity',
     options: [
         {
             value: '--module <module>',
