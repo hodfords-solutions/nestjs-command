@@ -4,7 +4,7 @@ import { Command } from '../decorators/command.decorator';
 
 @Command({
     signature: 'make-repository <name>',
-    description: 'Make a service',
+    description: 'Make a repository',
     options: [
         {
             value: '--module <module>',
