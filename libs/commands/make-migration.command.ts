@@ -5,6 +5,7 @@ import { Command } from '../decorators/command.decorator';
 import { Connection } from 'typeorm';
 import { EntityMetadata } from 'typeorm/metadata/EntityMetadata';
 import { ColumnMetadata } from 'typeorm/metadata/ColumnMetadata';
+import { resolve } from 'path';
 
 @Command({
     signature: 'make-migration <name>',
@@ -36,8 +37,9 @@ export class MakeMigrationCommand extends BaseMakeCommand {
         super();
     }
 
+
     public getStub() {
-        return __dirname + '/stubs/make-migration.stub';
+        return resolve(__dirname, '../stubs/make-migration.stub');
     }
 
     public handle() {

@@ -7,6 +7,7 @@ import { MakeControllerCommand } from './make-controller.command';
 import { MakeEntityCommand } from './make-entity.command';
 import { MakeRepositoryCommand } from './make-repository.command';
 import { MakeDtoCommand } from './make-dto.command';
+import { resolve } from 'path';
 
 @Command({
     signature: 'make-module <name>',
@@ -26,7 +27,7 @@ export class MakeModuleCommand extends BaseMakeCommand {
     }
 
     public getStub() {
-        return __dirname + '/stubs/make-migration.stub';
+        return resolve(__dirname, '../stubs/make-migration.stub');
     }
 
     public handle() {

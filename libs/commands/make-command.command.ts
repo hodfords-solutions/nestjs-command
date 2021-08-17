@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { startCase } from 'lodash';
+import { resolve } from 'path';
 import { Command } from '../decorators/command.decorator';
 import { BaseMakeCommand } from './base-make-command';
 
@@ -19,7 +20,7 @@ import { BaseMakeCommand } from './base-make-command';
 @Injectable()
 export class MakeCommandCommand extends BaseMakeCommand {
     public getStub() {
-        return __dirname + '/stubs/make-command.stub';
+        return resolve(__dirname, '../stubs/make-command.stub');
     }
 
     public handle() {

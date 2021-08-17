@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { CommandService } from './services/command.service';
+import { CommandService } from './command.service';
 import { MakeCommandCommand } from './commands/make-command.command';
 import { MakeMigrationCommand } from './commands/make-migration.command';
 import { MakeModuleCommand } from './commands/make-module.command';
