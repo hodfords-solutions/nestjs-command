@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { BaseMakeCommand } from './base-make-command';
 import { Command } from '../decorators/command.decorator';
+import { resolve } from 'path';
 
 @Command({
     signature: 'make-entity <name>',
@@ -15,7 +16,7 @@ import { Command } from '../decorators/command.decorator';
 @Injectable()
 export class MakeEntityCommand extends BaseMakeCommand {
     public getStub() {
-        return __dirname + '/stubs/modules/entities/entity.stub';
+        return resolve(__dirname, '../stubs/modules/entities/entity.stub');
     }
 
     public handle() {
