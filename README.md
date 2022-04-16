@@ -25,13 +25,13 @@ ___
 ## Installation 🤖
 
 ```
-npm install @hodfords/nestjs-command --save-dev
+npm install @hodford/nestjs-command --save-dev
 ```
 
 - `src/app.module.ts`
 ```javascript
 import { Module } from '@nestjs/common';
-import { CommandModule } from '@hodfords/nestjs-command';
+import { CommandModule } from '@hodford/nestjs-command';
 
 @Module({
     imports: [CommandModule],
@@ -45,7 +45,7 @@ export class AppModule {}
 
 ```javascript
 import { NestFactory } from '@nestjs/core';
-import { CommandService, CommandModule } from '@hodfords/nestjs-command';
+import { CommandService, CommandModule } from '@hodford/nestjs-command';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
@@ -60,7 +60,7 @@ bootstrap();
 - `package.json`
 
 ```json
-"wz-command": "ts-node -r tsconfig-paths/register src/cli.ts"
+"wz-command": "wz-command"
 ```
 
 ## Usage ⚡️
@@ -68,53 +68,77 @@ bootstrap();
 ### Make new command
 
 ```bash
+npm run wz-command make-command <file-name> -- --module <module-name>
+OR
 wz-command make-command <file-name> --module <module-name>
 ```
 
 ### Make controller
 
 ```bash
+npm run wz-command make-controller <file-name> -- --module <module-name>
+OR
 wz-command make-controller <file-name> --module <module-name>
 ```
 
 ### Make dto
 
 ```bash
+npm run wz-command make-dto <file-name> -- --module <module-name>
+OR
 wz-command make-dto <file-name> --module <module-name>
 ```
 
 ### Make e2e test
 
 ```bash
+npm run wz-command make-e2e-test <file-name> -- --module <module-name>
+OR
 wz-command make-e2e-test <file-name> --module <module-name>
 ```
 
 ### Make entity
 
 ```bash
+npm run wz-command make-entity <file-name> -- --module <module-name>
+OR
 wz-command make-entity <file-name> --module <module-name>
 ```
 
 ### Make migration
-
+#### Create new table
 ```bash
-wz-command make-migration <file-name> --module <module-name>
+npm run wz-command make-migration <file-name> -- --module <module-name> --create=<entity-name>
+OR
+wz-command make-migration <file-name> --module <module-name> --create=<entity-name>
+```
+#### Update a table
+```bash
+npm run wz-command make-migration <file-name> -- --module <module-name> --update=<entity-name>
+OR
+wz-command make-migration <file-name> --module <module-name> --update=<entity-name>
 ```
 
 ### Make module
 
 ```bash
+npm run wz-command make-module <file-name> -- --module <module-name>
+OR
 wz-command make-module <file-name> --module <module-name>
 ```
 
 ### Make repository
 
 ```bash
+npm run wz-command make-repository <file-name> -- --module <module-name>
+OR
 wz-command make-repository <file-name> --module <module-name>
 ```
 
 ### Make service
 
 ```bash
+npm run wz-command make-service <file-name> -- --module <module-name>
+OR
 wz-command make-service <file-name> --module <module-name>
 ```

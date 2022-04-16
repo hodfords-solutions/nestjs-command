@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { BaseMakeCommand } from './base-make-command';
+import { BaseMakeCommand } from './base-make.command';
 import { Command } from '../decorators/command.decorator';
 import { MakeE2eTestCommand } from './make-e2e-test.command';
 import { MakeServiceCommand } from './make-service.command';
