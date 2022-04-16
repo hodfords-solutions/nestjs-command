@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { startCase } from 'lodash';
 import { resolve } from 'path';
 import { Command } from '../decorators/command.decorator';
-import { BaseMakeCommand } from './base-make-command';
+import { BaseMakeCommand } from './base-make.command';
 
 @Command({
     signature: 'make-command <command>',
