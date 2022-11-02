@@ -1,6 +1,6 @@
 {
   "name": "@hodfords/nestjs-command",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "",
   "main": ".eslintrc.js",
   "scripts": {
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hodfords-community/nestjs-command.git"
+    "url": "git+https://github.com/hodfords-solutions/nestjs-command.git"
   },
   "bin": {
     "wz-command": "./bin/cli"
@@ -19,9 +19,9 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hodfords-community/nestjs-command/issues"
+    "url": "https://github.com/hodfords-solutions/nestjs-command/issues"
   },
-  "homepage": "https://github.com/hodfords-community/nestjs-command#readme",
+  "homepage": "https://github.com/hodfords-solutions/nestjs-command#readme",
   "devDependencies": {
     "@nestjs/common": "8.0.5",
     "@nestjs/core": "8.0.5",
