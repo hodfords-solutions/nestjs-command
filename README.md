@@ -25,13 +25,13 @@ ___
 ## Installation 🤖
 
 ```
-npm install @hodford/nestjs-command --save-dev
+npm install @hodfords/nestjs-command --save-dev
 ```
 
 - `src/app.module.ts`
 ```javascript
 import { Module } from '@nestjs/common';
-import { CommandModule } from '@hodford/nestjs-command';
+import { CommandModule } from '@hodfords/nestjs-command';
 
 @Module({
     imports: [CommandModule],
@@ -45,7 +45,7 @@ export class AppModule {}
 
 ```javascript
 import { NestFactory } from '@nestjs/core';
-import { CommandService, CommandModule } from '@hodford/nestjs-command';
+import { CommandService, CommandModule } from '@hodfords/nestjs-command';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);

@@ -1,5 +1,5 @@
 import { QueryRunner } from 'typeorm';
-import { BaseMigration } from '@hodford/typeorm-helper';
+import { BaseMigration } from '@hodfords/typeorm-helper';
 
 export class $$CLASS$$ extends BaseMigration {
     async run(queryRunner: QueryRunner) {
