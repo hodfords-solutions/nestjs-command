@@ -1,8 +1,8 @@
 {
   "name": "@hodfords/nestjs-command",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "",
-  "main": ".eslintrc.js",
+  "main": "index.js",
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc",
