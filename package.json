@@ -1,6 +1,6 @@
 {
   "name": "@hodfords/nestjs-command",
-  "version": "1.0.8",
+  "version": "8.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
