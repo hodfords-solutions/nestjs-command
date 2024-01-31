@@ -1,12 +1,11 @@
+import { Id, Pagination, PaginationParams } from '@hodfords/nestjs-base-decorator';
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Post, Put } from '@nestjs/common';
 import { BaseController } from '~core/http/controllers/base.controller';
 import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { $$CLASS$$Service } from '../../services/$$FILENAME$$.service';
 import { Create$$CLASS$$Dto } from '../dto/create-$$FILENAME$$.dto';
-import { Pagination, PaginationParams } from '~core/decorators/pagination.decorator';
-import { Id } from '~core/decorators/id.decorator';
 
-@Controller('REPLACE_IT')
+@Controller('$$CONTROLLER_NAME$$')
 @ApiTags('$$CLASS$$')
 export class $$CLASS$$Controller extends BaseController {
     constructor(private $$PROPERTY$$Service: $$CLASS$$Service) {

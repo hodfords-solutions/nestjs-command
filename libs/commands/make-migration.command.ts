@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { camelCase, upperFirst } from 'lodash';
-import { BaseMakeCommand } from './base-make.command';
-import { Command } from '../decorators/command.decorator';
-import { Connection, getConnection } from 'typeorm';
-import { EntityMetadata } from 'typeorm/metadata/EntityMetadata';
-import { ColumnMetadata } from 'typeorm/metadata/ColumnMetadata';
+import { camelCase, difference, upperFirst } from 'lodash';
 import { resolve } from 'path';
-import { difference } from 'lodash';
+import { DataSource } from 'typeorm';
+import { ColumnMetadata } from 'typeorm/metadata/ColumnMetadata';
+import { EntityMetadata } from 'typeorm/metadata/EntityMetadata';
+import { Command } from '../decorators/command.decorator';
+import { BaseMakeCommand } from './base-make.command';
 
 @Command({
     signature: 'make-migration <name>',
@@ -34,7 +33,7 @@ export class MakeMigrationCommand extends BaseMakeCommand {
     public name: string;
     public tableName: string;
 
-    constructor(private connection: Connection) {
+    constructor(private dataSource: DataSource) {
         super();
     }
 
@@ -59,7 +58,7 @@ export class MakeMigrationCommand extends BaseMakeCommand {
             this.tableName = update;
             const { newColumns, removedColumnsName } = await this.getUpdateColumnsMetaData();
             runContent = this.getRunUpdateContent([
-                ...this.generateAddNewColumnContent(newColumns, this.connection.getMetadata(this.tableName)),
+                ...this.generateAddNewColumnContent(newColumns, this.dataSource.getMetadata(this.tableName)),
                 ...this.generateRemoveColumnContent(removedColumnsName)
             ]);
             rollbackContent = '';
@@ -83,7 +82,7 @@ export class MakeMigrationCommand extends BaseMakeCommand {
     }
 
     public getRunCreateContent() {
-        let entity = this.connection.getMetadata(this.tableName);
+        let entity = this.dataSource.getMetadata(this.tableName);
         let columns = entity.columns;
         let data = [`await this.create('${entity.tableName}', (table) => {`];
         data.push(...this.generateAddNewColumnContent(columns, entity));
@@ -101,11 +100,10 @@ export class MakeMigrationCommand extends BaseMakeCommand {
     }
 
     private async getUpdateColumnsMetaData() {
-        const connection = getConnection();
-        const queryRunner = connection.createQueryRunner();
+        const queryRunner = this.dataSource.createQueryRunner();
         const tables = await queryRunner.getTables([this.tableName]);
         const tableColumnsMetaData = tables[0].columns;
-        const entityColumnsMetadata = connection.getMetadata(this.tableName).columns;
+        const entityColumnsMetadata = this.dataSource.getMetadata(this.tableName).columns;
 
         const tableColumnsName = tableColumnsMetaData.map((item) => item.name);
         const entityColumnsName = entityColumnsMetadata.map((item) => item.databaseName);
@@ -123,7 +121,6 @@ export class MakeMigrationCommand extends BaseMakeCommand {
         const data = [];
         for (let column of columns) {
             delete column.entityMetadata;
-            let type = '';
 
             if (column.isPrimary && column.isGenerated) {
                 data.push(`table.primaryUuid('${column.propertyName}');`);
@@ -135,40 +132,47 @@ export class MakeMigrationCommand extends BaseMakeCommand {
                 } else if (column.isDeleteDate) {
                     data.push(`table.deletedAt();`);
                 } else {
-                    if (typeof column.type === 'string') {
-                        type = column.type;
-                    } else {
-                        type = column.type.name.toLowerCase();
-                    }
-                    if (type === 'number') {
-                        type = 'integer';
-                    }
-                    if (type === 'character varying') {
-                        type = 'string';
-                    }
+                    const type = this.getType(column);
                     let command = `table.${type}('${column.propertyName}')`;
-                    if (column.isNullable) {
-                        command += '.nullable()';
-                    }
-                    if (column.length) {
-                        command += `.length(${column.length})`;
-                    }
-                    if (column.default) {
-                        if (typeof column.default === 'string') {
-                            command += `.default('${column.default}')`;
-                        } else {
-                            command += `.default(${column.default})`;
-                        }
-                    }
-                    if (this.isIndex(column.propertyName, entity)) {
-                        command += `.index()`;
-                    }
-                    command += ';';
+                    command = command + this.appendCommand(column, entity);
                     data.push(command);
                 }
             }
         }
         return data;
+    }
+
+    private appendCommand(column: ColumnMetadata, entity: EntityMetadata) {
+        let command = '';
+        if (column.isNullable) {
+            command += '.nullable()';
+        }
+        if (column.length) {
+            command += `.length(${column.length})`;
+        }
+        if (typeof column.default !== 'undefined') {
+            if (typeof column.default === 'string') {
+                command += `.default("'${column.default}'")`;
+            } else {
+                command += `.default(${column.default})`;
+            }
+        }
+        if (this.isIndex(column.propertyName, entity)) {
+            command += `.index()`;
+        }
+        command += ';';
+        return command;
+    }
+
+    private getType(column: ColumnMetadata) {
+        const type = typeof column.type === 'string' ? column.type : column.type.name.toLowerCase();
+        if (type === 'number') {
+            return 'integer';
+        }
+        if (type === 'character varying') {
+            return 'string';
+        }
+        return type;
     }
 
     private generateRemoveColumnContent(columnsName: string[]) {
