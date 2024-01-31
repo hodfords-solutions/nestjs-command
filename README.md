@@ -27,6 +27,12 @@ ___
 ```
 npm install @hodfords/nestjs-command --save-dev
 ```
+- `src/config/command.config.ts`
+```javascript
+import { CommandModule } from '@hodfords/nestjs-command';
+
+export const commandConfig = CommandModule.register(); // CommandModule.register(false) if typeorm is disabled
+```
 
 - `src/app.module.ts`
 ```javascript
@@ -34,7 +40,7 @@ import { Module } from '@nestjs/common';
 import { CommandModule } from '@hodfords/nestjs-command';
 
 @Module({
-    imports: [CommandModule],
+    imports: [commandConfig],
     controllers: [],
     providers: []
 })
@@ -45,11 +51,12 @@ export class AppModule {}
 
 ```javascript
 import { NestFactory } from '@nestjs/core';
-import { CommandService, CommandModule } from '@hodfords/nestjs-command';
+import { CommandService } from '@hodfords/nestjs-command';
+import { commandConfig } from '~config/command.config';
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule);
-    const commandService: CommandService = app.select(CommandModule).get(CommandService, { strict: true });
+    const commandService: CommandService = app.select(commandConfig).get(CommandService, { strict: true });
     await commandService.exec();
     await app.close();
 }
@@ -122,9 +129,9 @@ wz-command make-migration <file-name> --module <module-name> --update=<entity-na
 ### Make module
 
 ```bash
-npm run wz-command make-module <file-name> -- --module <module-name>
+npm run wz-command make-module <module-name>
 OR
-wz-command make-module <file-name> --module <module-name>
+wz-command make-module <file-name>
 ```
 
 ### Make repository

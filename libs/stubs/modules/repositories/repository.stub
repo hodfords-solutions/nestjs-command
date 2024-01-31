@@ -1,6 +1,6 @@
-import { EntityRepository } from 'typeorm';
+import { CustomRepository } from '@hodfords/typeorm-helper';
 import { BaseRepository } from '~core/repositories/base.repository';
 import { $$CLASS$$Entity } from '../entities/$$FILENAME$$.entity';
 
-@EntityRepository($$CLASS$$Entity)
+@CustomRepository($$CLASS$$Entity)
 export class $$CLASS$$Repository extends BaseRepository<$$CLASS$$Entity> {}
