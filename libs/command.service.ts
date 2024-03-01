@@ -1,6 +1,6 @@
 import { Global, Injectable } from '@nestjs/common';
-import { Command } from 'commander';
 import { ModulesContainer } from '@nestjs/core';
+import { Command } from 'commander';
 import { COMMAND_KEY } from './decorators/command.decorator';
 
 @Global()

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { BaseMakeCommand } from './base-make.command';
-import { Command } from '../decorators/command.decorator';
 import { resolve } from 'path';
+import { Command } from '../decorators/command.decorator';
+import { BaseMakeCommand } from './base-make.command';
 
 @Command({
     signature: 'make-service <name>',

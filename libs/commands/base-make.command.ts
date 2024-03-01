@@ -1,6 +1,6 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'fs';
-import path from 'path';
 import { camelCase, escapeRegExp, kebabCase, upperFirst } from 'lodash';
+import path from 'path';
 import { BaseCommand } from './base.command';
 
 export abstract class BaseMakeCommand extends BaseCommand {
