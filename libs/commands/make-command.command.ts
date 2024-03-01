@@ -33,7 +33,7 @@ export class MakeCommandCommand extends BaseMakeCommand {
             },
             {
                 search: '$$CLASS$$',
-                value: startCase(command)
+                value: startCase(command).replace(/ /g, '')
             }
         ]);
         this.writeFileToModule('console/commands', `${command}.command.ts`);

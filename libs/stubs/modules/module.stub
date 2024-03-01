@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
-import { EnterpriseController } from './http/controllers/enterprise.controller';
-import { EnterpriseRepository } from './repositories/enterprise.repository';
-import { EnterpriseEntity } from './entities/enterprise.entity';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { EnterpriseService } from './services/enterprise.service';
+import { TypeOrmHelperModule } from '@hodfords/typeorm-helper';
+import { $$CLASS$$Controller } from './http/controllers/$$FILENAME$$.controller';
+import { $$CLASS$$Repository } from './repositories/$$FILENAME$$.repository';
+import { $$CLASS$$Entity } from './entities/$$FILENAME$$.entity';
+import { $$CLASS$$Service } from './services/$$FILENAME$$.service';
 
 @Module({
-    providers: [EnterpriseService],
-    controllers: [EnterpriseController],
-    imports: [TypeOrmModule.forFeature([EnterpriseRepository, EnterpriseEntity])]
+    providers: [$$CLASS$$Service],
+    controllers: [$$CLASS$$Controller],
+    imports: [TypeOrmHelperModule.forCustomRepository([$$CLASS$$Repository, $$CLASS$$Entity])]
 })
-export class EnterpriseModule {}
+export class $$CLASS$$Module {}
