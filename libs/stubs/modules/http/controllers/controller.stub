@@ -4,6 +4,8 @@ import { BaseController } from '~core/http/controllers/base.controller';
 import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { $$CLASS$$Service } from '../../services/$$FILENAME$$.service';
 import { Create$$CLASS$$Dto } from '../dto/create-$$FILENAME$$.dto';
+import { $$CLASS$$Entity } from '../../entities/$$FILENAME$$.entity';
+import { PaginationCollection } from '@hodfords/typeorm-helper';
 
 @Controller('$$CONTROLLER_NAME$$')
 @ApiTags('$$TITLE$$')

@@ -28,6 +28,10 @@ export class MakeControllerCommand extends BaseMakeCommand {
                 value: this.getClassName(name)
             },
             {
+                search: '$$CONTROLLER_NAME$$',
+                value: name
+            },
+            {
                 search: '$$PROPERTY$$',
                 value: this.getPropertyName(name)
             },
