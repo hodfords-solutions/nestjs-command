@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { $$CLASS$$Repository } from '../repositories/$$FILENAME$$.repository';
 import { $$CLASS$$Entity } from '../entities/$$FILENAME$$.entity';
 import { PaginationCollection } from '@hodfords/typeorm-helper';
+import { Create$$CLASS$$Dto } from '../dto/create-$$FILENAME$$.dto';
+import { PaginationParams } from '@hodfords/nestjs-base-decorator';
 
 @Injectable()
 export class $$CLASS$$Service {
