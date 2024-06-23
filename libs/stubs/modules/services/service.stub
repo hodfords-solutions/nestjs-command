@@ -4,28 +4,25 @@ import { $$CLASS$$Repository } from '../repositories/$$FILENAME$$.repository';
 
 @Injectable()
 export class $$CLASS$$Service {
-    public constructor(
-        @InjectRepository($$CLASS$$Repository)
-        private $$PROPERTY$$Repo: $$CLASS$$Repository
-    ) {}
+    public constructor(private $$PROPERTY$$Repo: $$CLASS$$Repository) {}
 
-    async findById(id: string) {
-        return await this.$$PROPERTY$$Repo.findById(id);
+    async findById(id: string): Promise<$$CLASS$$Entity> {
+        return this.$$PROPERTY$$Repo.findById(id);
     }
 
-    async list(page) {
-        return await this.$$PROPERTY$$Repo.pagination({}, page);
+    async list(page): Promise<$$CLASS$$Entity[]> {
+        return this.$$PROPERTY$$Repo.pagination({}, page);
     }
 
-    async create(data) {
-        return await this.$$PROPERTY$$Repo.createOne(data);
+    async create(data): Promise<$$CLASS$$Entity> {
+        return this.$$PROPERTY$$Repo.createOne(data);
     }
 
-    async update(id, data) {
-        return await this.$$PROPERTY$$Repo.update(id, data);
+    async update(id, data): Promise<void> {
+        await this.$$PROPERTY$$Repo.update(id, data);
     }
 
-    async destroy(id) {
-        return await this.$$PROPERTY$$Repo.delete(id);
+    async destroy(id): Promise<void> {
+        await this.$$PROPERTY$$Repo.delete(id);
     }
 }

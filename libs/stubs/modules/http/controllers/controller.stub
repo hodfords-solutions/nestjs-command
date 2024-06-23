@@ -17,7 +17,7 @@ export class $$CLASS$$Controller extends BaseController {
         description: 'Get list $$PROPERTY$$'
     })
     async index(@Pagination() page: PaginationParams) {
-        return await this.$$PROPERTY$$Service.list(page);
+        return this.$$PROPERTY$$Service.list(page);
     }
 
     @Get(':id')
@@ -30,7 +30,7 @@ export class $$CLASS$$Controller extends BaseController {
         description: 'Get detail of $$PROPERTY$$'
     })
     async show(@Id() id: string) {
-        return await this.$$PROPERTY$$Service.findById(id);
+        return this.$$PROPERTY$$Service.findById(id);
     }
 
     @Post()
@@ -39,7 +39,7 @@ export class $$CLASS$$Controller extends BaseController {
     })
     @HttpCode(HttpStatus.CREATED)
     async create(@Body() dto: Create$$CLASS$$Dto) {
-        return await this.$$PROPERTY$$Service.create(dto);
+        return this.$$PROPERTY$$Service.create(dto);
     }
 
     @Put(':id')
@@ -53,7 +53,7 @@ export class $$CLASS$$Controller extends BaseController {
     })
     @HttpCode(HttpStatus.NO_CONTENT)
     async update(@Body() dto: Create$$CLASS$$Dto, @Id() id: string) {
-        return await this.$$PROPERTY$$Service.update(id, dto);
+        return this.$$PROPERTY$$Service.update(id, dto);
     }
 
     @Delete(':id')
@@ -67,6 +67,6 @@ export class $$CLASS$$Controller extends BaseController {
     })
     @HttpCode(HttpStatus.NO_CONTENT)
     async destroy(@Id() id: string) {
-        return await this.$$PROPERTY$$Service.destroy(id);
+        return this.$$PROPERTY$$Service.destroy(id);
     }
 }
