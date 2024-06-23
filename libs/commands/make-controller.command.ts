@@ -34,6 +34,10 @@ export class MakeControllerCommand extends BaseMakeCommand {
             {
                 search: '$$FILENAME$$',
                 value: this.getFileName(name)
+            },
+            {
+                search: '$$TITLE$$',
+                value: this.getTitleName(name)
             }
         ]);
         this.writeFileToModule('http/controllers', `${name}.controller.ts`);

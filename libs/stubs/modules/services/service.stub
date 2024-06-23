@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 import { $$CLASS$$Repository } from '../repositories/$$FILENAME$$.repository';
+import { $$CLASS$$Entity } from '../entities/$$FILENAME$$.entity';
+import { PaginationCollection } from '@hodfords/typeorm-helper';
 
 @Injectable()
 export class $$CLASS$$Service {
@@ -10,19 +11,19 @@ export class $$CLASS$$Service {
         return this.$$PROPERTY$$Repo.findById(id);
     }
 
-    async list(page): Promise<$$CLASS$$Entity[]> {
+    async list(page: PaginationParams): Promise<PaginationCollection<$$CLASS$$Entity>> {
         return this.$$PROPERTY$$Repo.pagination({}, page);
     }
 
-    async create(data): Promise<$$CLASS$$Entity> {
+    async create(data: Create$$CLASS$$Dto): Promise<$$CLASS$$Entity> {
         return this.$$PROPERTY$$Repo.createOne(data);
     }
 
-    async update(id, data): Promise<void> {
+    async update(id: string, data: Create$$CLASS$$Dto): Promise<void> {
         await this.$$PROPERTY$$Repo.update(id, data);
     }
 
-    async destroy(id): Promise<void> {
+    async destroy(id: string): Promise<void> {
         await this.$$PROPERTY$$Repo.delete(id);
     }
 }
