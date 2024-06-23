@@ -6,7 +6,7 @@ import { $$CLASS$$Service } from '../../services/$$FILENAME$$.service';
 import { Create$$CLASS$$Dto } from '../dto/create-$$FILENAME$$.dto';
 
 @Controller('$$CONTROLLER_NAME$$')
-@ApiTags('$$CLASS$$')
+@ApiTags('$$TITLE$$')
 export class $$CLASS$$Controller extends BaseController {
     constructor(private $$PROPERTY$$Service: $$CLASS$$Service) {
         super();
@@ -14,31 +14,31 @@ export class $$CLASS$$Controller extends BaseController {
 
     @Get()
     @ApiOperation({
-        description: 'Get list $$PROPERTY$$'
+        description: 'Get list $$TITLE$$'
     })
-    async index(@Pagination() page: PaginationParams) {
+    async index(@Pagination() page: PaginationParams): Promise<PaginationCollection<$$CLASS$$Entity>> {
         return this.$$PROPERTY$$Service.list(page);
     }
 
     @Get(':id')
     @ApiParam({
         name: 'id',
-        description: '$$CLASS$$ id',
+        description: '$$TITLE$$ id',
         type: 'string'
     })
     @ApiOperation({
-        description: 'Get detail of $$PROPERTY$$'
+        description: 'Get detail of $$TITLE$$'
     })
-    async show(@Id() id: string) {
+    async show(@Id() id: string): Promise<$$CLASS$$Entity> {
         return this.$$PROPERTY$$Service.findById(id);
     }
 
     @Post()
     @ApiOperation({
-        description: 'Create an $$PROPERTY$$'
+        description: 'Create a $$TITLE$$'
     })
     @HttpCode(HttpStatus.CREATED)
-    async create(@Body() dto: Create$$CLASS$$Dto) {
+    async create(@Body() dto: Create$$CLASS$$Dto): Promise<$$CLASS$$Entity> {
         return this.$$PROPERTY$$Service.create(dto);
     }
 
@@ -49,11 +49,11 @@ export class $$CLASS$$Controller extends BaseController {
         type: 'string'
     })
     @ApiOperation({
-        description: 'Update an $$PROPERTY$$'
+        description: 'Update a $$TITLE$$'
     })
     @HttpCode(HttpStatus.NO_CONTENT)
-    async update(@Body() dto: Create$$CLASS$$Dto, @Id() id: string) {
-        return this.$$PROPERTY$$Service.update(id, dto);
+    async update(@Body() dto: Create$$CLASS$$Dto, @Id() id: string): Promise<void> {
+        await this.$$PROPERTY$$Service.update(id, dto);
     }
 
     @Delete(':id')
@@ -63,10 +63,10 @@ export class $$CLASS$$Controller extends BaseController {
         type: 'string'
     })
     @ApiOperation({
-        description: 'Destroy an $$PROPERTY$$'
+        description: 'Destroy a $$TITLE$$'
     })
     @HttpCode(HttpStatus.NO_CONTENT)
-    async destroy(@Id() id: string) {
-        return this.$$PROPERTY$$Service.destroy(id);
+    async destroy(@Id() id: string): Promise<void> {
+        await this.$$PROPERTY$$Service.destroy(id);
     }
 }

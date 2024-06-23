@@ -1,5 +1,5 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'fs';
-import { camelCase, escapeRegExp, kebabCase, upperFirst } from 'lodash';
+import { camelCase, escapeRegExp, kebabCase, startCase, upperFirst } from 'lodash';
 import path from 'path';
 import { BaseCommand } from './base.command';
 
@@ -52,15 +52,19 @@ export abstract class BaseMakeCommand extends BaseCommand {
         return this.handle();
     }
 
-    public getClassName(name) {
+    public getClassName(name: string): string {
         return upperFirst(camelCase(name));
     }
 
-    public getPropertyName(name) {
+    public getPropertyName(name: string): string {
         return camelCase(name);
     }
 
-    public getFileName(name) {
+    public getFileName(name: string): string {
         return kebabCase(name);
+    }
+
+    public getTitleName(name: string): string {
+        return startCase(camelCase(name));
     }
 }
