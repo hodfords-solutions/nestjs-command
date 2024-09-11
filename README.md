@@ -1,40 +1,31 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
+  <a href="http://opensource.hodfords.uk" target="blank"><img src="https://opensource.hodfords.uk/img/logo.svg" width="320" alt="Hodfords Logo" /></a>
 </p>
 
-# nestjs-command
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) Nest commands for common templates
-
-___
-
-- [Installation](#installation)
-- [Usage](#usage)
-  - [Make new command](#make-new-command)
-  - [Make controller](#make-controller)
-  - [Make DTO](#make-dto)
-  - [Make e2e test](#make-e2e-test)
-  - [Make entity](#make-entity)
-  - [Make migration](#make-migration)
-  - [Make module](#make-module)
-  - [Make repository](#make-repository)
-  - [Make service](#make-service)
+<p align="center"> <b>nestjs-command</b> simplifies creating and managing CLI commands in NestJS applications. It offers an easy way to define and execute commands, streamlining CLI integration and boosting productivity with minimal configuration.</p>
 
 ## Installation 🤖
 
+Install the `nestjs-command` package with:
+
 ```
-npm install @hodfords/nestjs-command --save-dev
+npm install @hodfords/nestjs-command --save
 ```
-- `src/config/command.config.ts`
+
+Set up in your codebase:
+
+-   `src/config/command.config.ts`
+
 ```javascript
 import { CommandModule } from '@hodfords/nestjs-command';
 
-export const commandConfig = CommandModule.register(); // CommandModule.register(false) if typeorm is disabled
+export const commandConfig = CommandModule.register();
+
+// export const = CommandModule.register(false) if typeorm is disabled
 ```
 
-- `src/app.module.ts`
+-   `src/app.module.ts`
+
 ```javascript
 import { Module } from '@nestjs/common';
 import { CommandModule } from '@hodfords/nestjs-command';
@@ -47,7 +38,7 @@ import { CommandModule } from '@hodfords/nestjs-command';
 export class AppModule {}
 ```
 
-- `src/cli.ts`
+-   `src/cli.ts`
 
 ```javascript
 import { NestFactory } from '@nestjs/core';
@@ -64,88 +55,118 @@ async function bootstrap() {
 bootstrap();
 ```
 
-- `package.json`
+-   `package.json`
 
 ```json
 "wz-command": "wz-command"
 ```
 
-## Usage ⚡️
+## Usage 🚀
 
-### Make new command
+Here’s how you can use them. For each type of component, you can use one of the two available command formats: with `npm run` or directly with `wz-command`
+
+### Make a command
 
 ```bash
 npm run wz-command make-command <file-name> -- --module <module-name>
-OR
+```
+
+```bash
 wz-command make-command <file-name> --module <module-name>
 ```
 
-### Make controller
+### Make a controller
 
 ```bash
 npm run wz-command make-controller <file-name> -- --module <module-name>
-OR
+```
+
+```bash
 wz-command make-controller <file-name> --module <module-name>
 ```
 
-### Make dto
+### Make a dto
 
 ```bash
 npm run wz-command make-dto <file-name> -- --module <module-name>
-OR
+```
+
+```bash
 wz-command make-dto <file-name> --module <module-name>
 ```
 
-### Make e2e test
+### Make an e2e test
 
 ```bash
 npm run wz-command make-e2e-test <file-name> -- --module <module-name>
-OR
+```
+
+```bash
 wz-command make-e2e-test <file-name> --module <module-name>
 ```
 
-### Make entity
+### Make an entity
 
 ```bash
 npm run wz-command make-entity <file-name> -- --module <module-name>
-OR
+```
+
+```bash
 wz-command make-entity <file-name> --module <module-name>
 ```
 
-### Make migration
-#### Create new table
+### Make a migration
+
+#### Create table
+
 ```bash
 npm run wz-command make-migration <file-name> -- --module <module-name> --create=<entity-name>
-OR
+```
+
+```bash
 wz-command make-migration <file-name> --module <module-name> --create=<entity-name>
 ```
-#### Update a table
+
+#### Update table
+
 ```bash
 npm run wz-command make-migration <file-name> -- --module <module-name> --update=<entity-name>
-OR
+```
+
+```bash
 wz-command make-migration <file-name> --module <module-name> --update=<entity-name>
 ```
 
-### Make module
+### Make a module
 
 ```bash
 npm run wz-command make-module <module-name>
-OR
+```
+
+```bash
 wz-command make-module <file-name>
 ```
 
-### Make repository
+### Make a repository
 
 ```bash
 npm run wz-command make-repository <file-name> -- --module <module-name>
-OR
+```
+
+```bash
 wz-command make-repository <file-name> --module <module-name>
 ```
 
-### Make service
+### Make a service
 
 ```bash
 npm run wz-command make-service <file-name> -- --module <module-name>
-OR
+```
+
+```bash
 wz-command make-service <file-name> --module <module-name>
 ```
+
+## License 📝
+
+This project is licensed under the MIT License
