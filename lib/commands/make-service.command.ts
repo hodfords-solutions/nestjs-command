@@ -4,8 +4,8 @@ import { Command } from '../decorators/command.decorator';
 import { BaseMakeCommand } from './base-make.command';
 
 @Command({
-    signature: 'make-repository <name>',
-    description: 'Make a repository',
+    signature: 'make-service <name>',
+    description: 'Make a service',
     options: [
         {
             value: '--module <module>',
@@ -14,13 +14,13 @@ import { BaseMakeCommand } from './base-make.command';
     ]
 })
 @Injectable()
-export class MakeRepositoryCommand extends BaseMakeCommand {
-    public getStub() {
-        return resolve(__dirname, '../stubs/modules/repositories/repository.stub');
+export class MakeServiceCommand extends BaseMakeCommand {
+    public getStub(): string {
+        return resolve(__dirname, '../stubs/modules/services/service.stub');
     }
 
-    public handle() {
-        let [name] = this.args;
+    public handle(): void {
+        const [name] = this.args;
         this.getContent();
         this.replaceContent([
             {
@@ -36,7 +36,7 @@ export class MakeRepositoryCommand extends BaseMakeCommand {
                 value: this.getFileName(name)
             }
         ]);
-        this.writeFileToModule('repositories', `${name}.repository.ts`);
-        this.success(`Create repository ${name} successfully!`);
+        this.writeFileToModule('services', `${name}.service.ts`);
+        this.success(`Create service ${name} successfully!`);
     }
 }
