@@ -27,17 +27,17 @@ export class MakeModuleCommand extends BaseMakeCommand {
         super();
     }
 
-    public getStub() {
+    public getStub(): string {
         return resolve(__dirname, '../stubs/modules/module.stub');
     }
 
-    get moduleName() {
+    get moduleName(): string {
         return pluralize(this.args[0]);
     }
 
-    public handle() {
-        let [name] = this.args;
-        let options = { module: this.moduleName };
+    public handle(): void {
+        const [name] = this.args;
+        const options = { module: this.moduleName };
         this.makeTestCommand.runWith([`${name}.controller`], options);
         this.makeServiceCommand.runWith([name], options);
         this.makeControllerCommand.runWith([name], options);
@@ -48,8 +48,8 @@ export class MakeModuleCommand extends BaseMakeCommand {
         this.createModuleFile();
     }
 
-    private createModuleFile() {
-        let [name] = this.args;
+    private createModuleFile(): void {
+        const [name] = this.args;
         this.getContent();
         this.replaceContent([
             {

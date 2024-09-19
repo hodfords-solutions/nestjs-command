@@ -1,15 +1,15 @@
 export interface CommandOption {
     signature: string;
-    description?: any;
-    params?: any;
-    options?: any[];
-    requiredOptions?: any[];
+    description?: string;
+    params?: object;
+    options?: object[];
+    requiredOptions?: object[];
 }
 
 export const COMMAND_KEY = 'command:options';
 
 export function Command(options: CommandOption) {
-    return function (constructor) {
+    return function <T>(constructor: T): T {
         Reflect.defineMetadata(COMMAND_KEY, options, constructor);
         return constructor;
     };

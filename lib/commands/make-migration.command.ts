@@ -37,17 +37,17 @@ export class MakeMigrationCommand extends BaseMakeCommand {
         super();
     }
 
-    public getStub() {
+    public getStub(): string {
         return resolve(__dirname, '../stubs/make-migration.stub');
     }
 
-    public async handle() {
-        let [name] = this.program.args;
+    public async handle(): Promise<void> {
+        const [name] = this.program.args;
         this.name = name;
-        let { create, update } = this.program.opts();
+        const { create, update } = this.program.opts();
         this.getContent();
-        let className = upperFirst(camelCase(name));
-        let currentTime = +new Date();
+        const className = upperFirst(camelCase(name));
+        const currentTime = +new Date();
         let runContent = '';
         let rollbackContent = '';
         if (create) {
@@ -81,25 +81,25 @@ export class MakeMigrationCommand extends BaseMakeCommand {
         this.success(`Create migration ${name} successfully!`);
     }
 
-    public getRunCreateContent() {
-        let entity = this.dataSource.getMetadata(this.tableName);
-        let columns = entity.columns;
-        let data = [`await this.create('${entity.tableName}', (table) => {`];
+    public getRunCreateContent(): string {
+        const entity = this.dataSource.getMetadata(this.tableName);
+        const columns = entity.columns;
+        const data = [`await this.create('${entity.tableName}', (table) => {`];
         data.push(...this.generateAddNewColumnContent(columns, entity));
         data.push(`});`);
 
         return data.join('\n');
     }
 
-    public getRunUpdateContent(content: string[]) {
+    public getRunUpdateContent(content: string[]): string {
         return `await this.update('${this.tableName}', (table) => { ${content.join('\n')}});`;
     }
 
-    public getRollbackCreateContent() {
+    public getRollbackCreateContent(): string {
         return `await this.drop('${this.tableName}');`;
     }
 
-    private async getUpdateColumnsMetaData() {
+    private async getUpdateColumnsMetaData(): Promise<{ removedColumnsName: string[]; newColumns: ColumnMetadata[] }> {
         const queryRunner = this.dataSource.createQueryRunner();
         const tables = await queryRunner.getTables([this.tableName]);
         const tableColumnsMetaData = tables[0].columns;
@@ -117,9 +117,9 @@ export class MakeMigrationCommand extends BaseMakeCommand {
         };
     }
 
-    private generateAddNewColumnContent(columns: ColumnMetadata[], entity: EntityMetadata) {
+    private generateAddNewColumnContent(columns: ColumnMetadata[], entity: EntityMetadata): string[] {
         const data = [];
-        for (let column of columns) {
+        for (const column of columns) {
             delete column.entityMetadata;
 
             if (column.isPrimary && column.isGenerated) {
@@ -142,7 +142,7 @@ export class MakeMigrationCommand extends BaseMakeCommand {
         return data;
     }
 
-    private appendCommand(column: ColumnMetadata, entity: EntityMetadata) {
+    private appendCommand(column: ColumnMetadata, entity: EntityMetadata): string {
         let command = '';
         if (column.isNullable) {
             command += '.nullable()';
@@ -164,7 +164,7 @@ export class MakeMigrationCommand extends BaseMakeCommand {
         return command;
     }
 
-    private getType(column: ColumnMetadata) {
+    private getType(column: ColumnMetadata): string {
         const type = typeof column.type === 'string' ? column.type : column.type.name.toLowerCase();
         if (type === 'number') {
             return 'integer';
@@ -175,7 +175,7 @@ export class MakeMigrationCommand extends BaseMakeCommand {
         return type;
     }
 
-    private generateRemoveColumnContent(columnsName: string[]) {
+    private generateRemoveColumnContent(columnsName: string[]): string[] {
         const data = [];
         for (const column of columnsName) {
             data.push(`table.dropColumn('${column}');`);
@@ -183,10 +183,10 @@ export class MakeMigrationCommand extends BaseMakeCommand {
         return data;
     }
 
-    public isIndex(column: string, entity: EntityMetadata) {
-        for (let index of entity.indices) {
+    public isIndex(column: string, entity: EntityMetadata): boolean {
+        for (const index of entity.indices) {
             if (index.columns.length === 1) {
-                return index.columns.find((c) => c.propertyName === column);
+                return index.columns.some((c) => c.propertyName === column);
             }
         }
         return false;

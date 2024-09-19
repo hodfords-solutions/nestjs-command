@@ -8,7 +8,7 @@ import { COMMAND_KEY } from './decorators/command.decorator';
 export class CommandService {
     constructor(private modulesContainer: ModulesContainer) {}
 
-    async exec() {
+    async exec(): Promise<void> {
         const program = new Command();
         const providerModules = [...this.modulesContainer.values()].map((module) => module.providers.values());
         for (const providerModule of providerModules) {
@@ -26,19 +26,19 @@ export class CommandService {
         await program.parseAsync();
     }
 
-    public addCommand(program, instance, meta) {
+    public addCommand(program, instance, meta): void {
         const commandBuilder = new Command().command(meta.signature);
         if (meta.description) {
             commandBuilder.description(meta.description, meta.params);
         }
         if (meta.options) {
-            for (let option of meta.options) {
+            for (const option of meta.options) {
                 commandBuilder.option(option.value, option.description);
             }
         }
 
         if (meta.requiredOptions) {
-            for (let option of meta.requiredOptions) {
+            for (const option of meta.requiredOptions) {
                 commandBuilder.requiredOption(option.value, option.description);
             }
         }

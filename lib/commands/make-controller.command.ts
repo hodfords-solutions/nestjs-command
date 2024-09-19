@@ -4,8 +4,8 @@ import { Command } from '../decorators/command.decorator';
 import { BaseMakeCommand } from './base-make.command';
 
 @Command({
-    signature: 'make-service <name>',
-    description: 'Make a service',
+    signature: 'make-controller <name>',
+    description: 'Make a controller',
     options: [
         {
             value: '--module <module>',
@@ -14,18 +14,22 @@ import { BaseMakeCommand } from './base-make.command';
     ]
 })
 @Injectable()
-export class MakeServiceCommand extends BaseMakeCommand {
-    public getStub() {
-        return resolve(__dirname, '../stubs/modules/services/service.stub');
+export class MakeControllerCommand extends BaseMakeCommand {
+    public getStub(): string {
+        return resolve(__dirname, '../stubs/modules/http/controllers/controller.stub');
     }
 
-    public handle() {
-        let [name] = this.args;
+    public handle(): void {
+        const [name] = this.args;
         this.getContent();
         this.replaceContent([
             {
                 search: '$$CLASS$$',
                 value: this.getClassName(name)
+            },
+            {
+                search: '$$CONTROLLER_NAME$$',
+                value: name
             },
             {
                 search: '$$PROPERTY$$',
@@ -34,9 +38,13 @@ export class MakeServiceCommand extends BaseMakeCommand {
             {
                 search: '$$FILENAME$$',
                 value: this.getFileName(name)
+            },
+            {
+                search: '$$TITLE$$',
+                value: this.getTitleName(name)
             }
         ]);
-        this.writeFileToModule('services', `${name}.service.ts`);
-        this.success(`Create service ${name} successfully!`);
+        this.writeFileToModule('http/controllers', `${name}.controller.ts`);
+        this.success(`Create controller ${name} successfully!`);
     }
 }

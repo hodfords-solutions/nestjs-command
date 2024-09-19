@@ -4,8 +4,8 @@ import { Command } from '../decorators/command.decorator';
 import { BaseMakeCommand } from './base-make.command';
 
 @Command({
-    signature: 'make-controller <name>',
-    description: 'Make a controller',
+    signature: 'make-repository <name>',
+    description: 'Make a repository',
     options: [
         {
             value: '--module <module>',
@@ -14,22 +14,18 @@ import { BaseMakeCommand } from './base-make.command';
     ]
 })
 @Injectable()
-export class MakeControllerCommand extends BaseMakeCommand {
-    public getStub() {
-        return resolve(__dirname, '../stubs/modules/http/controllers/controller.stub');
+export class MakeRepositoryCommand extends BaseMakeCommand {
+    public getStub(): string {
+        return resolve(__dirname, '../stubs/modules/repositories/repository.stub');
     }
 
-    public handle() {
-        let [name] = this.args;
+    public handle(): void {
+        const [name] = this.args;
         this.getContent();
         this.replaceContent([
             {
                 search: '$$CLASS$$',
                 value: this.getClassName(name)
-            },
-            {
-                search: '$$CONTROLLER_NAME$$',
-                value: name
             },
             {
                 search: '$$PROPERTY$$',
@@ -38,13 +34,9 @@ export class MakeControllerCommand extends BaseMakeCommand {
             {
                 search: '$$FILENAME$$',
                 value: this.getFileName(name)
-            },
-            {
-                search: '$$TITLE$$',
-                value: this.getTitleName(name)
             }
         ]);
-        this.writeFileToModule('http/controllers', `${name}.controller.ts`);
-        this.success(`Create controller ${name} successfully!`);
+        this.writeFileToModule('repositories', `${name}.repository.ts`);
+        this.success(`Create repository ${name} successfully!`);
     }
 }

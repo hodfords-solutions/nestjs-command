@@ -12,7 +12,7 @@ import { MakeServiceCommand } from './commands/make-service.command';
 
 @Module({})
 export class CommandModule {
-    static register(isEnableTypeorm: boolean = true): DynamicModule {
+    static register(isEnableTypeorm = true): DynamicModule {
         const providers: Provider[] = [
             CommandService,
             MakeCommandCommand,
