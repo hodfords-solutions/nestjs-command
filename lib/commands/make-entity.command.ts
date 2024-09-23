@@ -4,8 +4,8 @@ import { Command } from '../decorators/command.decorator';
 import { BaseMakeCommand } from './base-make.command';
 
 @Command({
-    signature: 'make-e2e-test <name>',
-    description: 'Make an e2e test',
+    signature: 'make-entity <name>',
+    description: 'Make an entity',
     options: [
         {
             value: '--module <module>',
@@ -14,13 +14,13 @@ import { BaseMakeCommand } from './base-make.command';
     ]
 })
 @Injectable()
-export class MakeE2eTestCommand extends BaseMakeCommand {
-    public getStub() {
-        return resolve(__dirname, '../stubs/modules/tests/e2e-spec.stub');
+export class MakeEntityCommand extends BaseMakeCommand {
+    public getStub(): string {
+        return resolve(__dirname, '../stubs/modules/entities/entity.stub');
     }
 
-    public handle() {
-        let [name] = this.args;
+    public handle(): void {
+        const [name] = this.args;
         this.getContent();
         this.replaceContent([
             {
@@ -28,7 +28,7 @@ export class MakeE2eTestCommand extends BaseMakeCommand {
                 value: this.getClassName(name)
             }
         ]);
-        this.writeFileToModule('tests', `${name}.e2e-spec.ts`);
-        this.success(`Create test ${name} successfully!`);
+        this.writeFileToModule('entities', `${this.getFileName(name)}.entity.ts`);
+        this.success(`Create entity ${name} successfully!`);
     }
 }

@@ -10,43 +10,43 @@ export abstract class BaseMakeCommand extends BaseCommand {
 
     abstract getStub();
 
-    public getContent() {
+    public getContent(): void {
         this.content = readFileSync(this.getStub()).toString();
     }
 
-    public replaceContent(contents: { search: string; value: string }[]) {
-        for (let content of contents) {
-            let regex = new RegExp(escapeRegExp(content.search), 'g');
+    public replaceContent(contents: { search: string; value: string }[]): void {
+        for (const content of contents) {
+            const regex = new RegExp(escapeRegExp(content.search), 'g');
             this.content = this.content.replace(regex, content.value);
         }
     }
 
-    public writeFile(pathName, fileName) {
+    public writeFile(pathName: string, fileName: string): void {
         writeFileSync(path.join(process.cwd(), pathName, fileName), this.content);
     }
 
-    public writeFileToModule(pathName, fileName) {
-        let fullPath = this.getModulePath(pathName);
+    public writeFileToModule(pathName: string, fileName: string): void {
+        const fullPath = this.getModulePath(pathName);
         mkdirSync(fullPath, { recursive: true });
         this.writeFile(fullPath, fileName);
     }
 
-    public getModulePath(pathName) {
+    public getModulePath(pathName: string): string {
         if (this.opts.module) {
             return path.join('src', this.opts.module, pathName);
         }
         return path.join('src', pathName);
     }
 
-    public get args() {
+    public get args(): string[] {
         return this.customArgs || this.program.args;
     }
 
-    public get opts() {
+    public get opts(): object & { module?: string } {
         return this.customOptions || this.program.opts();
     }
 
-    public runWith(args: any[] = undefined, opts: any = undefined) {
+    public runWith(args: object = undefined, opts: object = undefined): void {
         this.customArgs = args;
         this.customOptions = opts;
         return this.handle();
