@@ -19,11 +19,11 @@ import { BaseMakeCommand } from './base-make.command';
 })
 @Injectable()
 export class MakeCommandCommand extends BaseMakeCommand {
-    public getStub() {
+    public getStub(): string {
         return resolve(__dirname, '../stubs/make-command.stub');
     }
 
-    public handle() {
+    public handle(): void {
         const [command] = this.program.args;
         this.getContent();
         this.replaceContent([

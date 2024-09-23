@@ -15,12 +15,12 @@ import { BaseMakeCommand } from './base-make.command';
 })
 @Injectable()
 export class MakeDtoCommand extends BaseMakeCommand {
-    public getStub() {
+    public getStub(): string {
         return resolve(__dirname, '../stubs/modules/http/dto/dto.stub');
     }
 
-    public handle() {
-        let [name] = this.args;
+    public handle(): void {
+        const [name] = this.args;
         this.getContent();
         this.replaceContent([
             {
