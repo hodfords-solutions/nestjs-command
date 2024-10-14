@@ -42,7 +42,11 @@ export class CommandService {
                 commandBuilder.requiredOption(option.value, option.description);
             }
         }
-        commandBuilder.addHelpCommand(meta.params);
+
+        for (const param of Object.keys(meta.params || {})) {
+            commandBuilder.addHelpCommand(new Command(param).description(meta.params[param]));
+        }
+
         commandBuilder.action(async () => {
             instance.program = commandBuilder;
             await instance.handle();
