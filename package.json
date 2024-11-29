@@ -51,6 +51,11 @@
     "pluralize": "8.0.0"
   },
   "peerDependencies": {
-    "commander": "12.1.0"
+    "commander": "12.1.0",
+    "@nestjs/common": "*",
+    "@nestjs/core": "*"
+  },
+  "optionalDependencies": {
+    "typeorm": "*"
   }
 }
