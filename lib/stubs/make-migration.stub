@@ -2,11 +2,11 @@ import { QueryRunner } from 'typeorm';
 import { BaseMigration } from '@hodfords/typeorm-helper';
 
 export class $$CLASS$$ extends BaseMigration {
-    async run(queryRunner: QueryRunner) {
+    async run(queryRunner: QueryRunner): Promise<void> {
         $$RUN$$
     }
 
-    async rollback(queryRunner: QueryRunner) {
+    async rollback(queryRunner: QueryRunner): Promise<void> {
         $$ROLLBACK$$
     }
 }
