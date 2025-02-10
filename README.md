@@ -28,7 +28,7 @@ export const commandConfig = CommandModule.register();
 
 ```javascript
 import { Module } from '@nestjs/common';
-import { CommandModule } from '@hodfords/nestjs-command';
+import { commandConfig } from '~config/command.config';
 
 @Module({
     imports: [commandConfig],
@@ -46,7 +46,7 @@ import { CommandService } from '@hodfords/nestjs-command';
 import { commandConfig } from '~config/command.config';
 
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule);
+    const app = await NestFactory.createApplicationContext(AppModule);
     const commandService: CommandService = app.select(commandConfig).get(CommandService, { strict: true });
     await commandService.exec();
     await app.close();
@@ -165,6 +165,26 @@ npm run wz-command make-service <file-name> -- --module <module-name>
 
 ```bash
 wz-command make-service <file-name> --module <module-name>
+```
+
+### List all scheduled cron jobs
+
+```bash
+npm run wz-command list-cron-jobs
+```
+
+```bash
+wz-command list-cron-jobs
+```
+
+### Run specific cron jobs
+
+```bash
+npm run wz-command run-cron-jobs -- --jobs <jobName>
+```
+
+```bash
+wz-command run-cron-jobs --jobs <jobName>
 ```
 
 ## License 📝
