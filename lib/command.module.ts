@@ -9,7 +9,7 @@ import { MakeMigrationCommand } from './commands/make-migration.command';
 import { MakeModuleCommand } from './commands/make-module.command';
 import { MakeRepositoryCommand } from './commands/make-repository.command';
 import { MakeServiceCommand } from './commands/make-service.command';
-import { ListCronJobsCommand } from 'lib/commands/list-cron-jobs.command';
+import { ListCronJobsCommand } from './commands/list-cron-jobs.command';
 import { RunCronJobsCommand } from './commands/run-cron-jobs.command';
 
 @Module({})
