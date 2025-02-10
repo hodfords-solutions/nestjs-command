@@ -1,6 +1,6 @@
 {
   "name": "@hodfords/nestjs-command",
-  "version": "11.0.0",
+  "version": "11.0.1",
   "description": "A utility for running CLI commands in NestJS apps",
   "main": "index.js",
   "scripts": {
