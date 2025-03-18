@@ -1,6 +1,6 @@
 {
   "name": "@hodfords/nestjs-command",
-  "version": "11.0.3",
+  "version": "11.0.4",
   "description": "A utility for running CLI commands in NestJS apps",
   "main": "index.js",
   "scripts": {
@@ -28,26 +28,26 @@
   },
   "homepage": "https://github.com/hodfords-solutions/nestjs-command#readme",
   "devDependencies": {
-    "@hodfords/nestjs-eslint-config": "11.0.0",
-    "@hodfords/nestjs-prettier-config": "11.0.0",
-    "@nestjs/common": "11.0.8",
-    "@nestjs/core": "11.0.8",
-    "@types/lodash": "4.17.15",
-    "@types/node": "22.13.1",
-    "cspell": "8.17.3",
-    "eslint": "9.20.0",
+    "@hodfords/nestjs-eslint-config": "11.0.1",
+    "@hodfords/nestjs-prettier-config": "11.0.1",
+    "@nestjs/common": "11.0.11",
+    "@nestjs/core": "11.0.11",
+    "@types/lodash": "4.17.16",
+    "@types/node": "22.13.10",
+    "cspell": "8.17.5",
+    "eslint": "9.22.0",
     "husky": "9.1.7",
     "is-ci": "4.1.0",
-    "lint-staged": "15.4.3",
+    "lint-staged": "15.5.0",
     "lodash": "4.17.21",
-    "prettier": "3.5.0",
+    "prettier": "3.5.3",
     "reflect-metadata": "0.2.2",
     "rimraf": "6.0.1",
-    "rxjs": "7.8.1",
+    "rxjs": "7.8.2",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
     "typeorm": "0.3.20",
-    "typescript": "5.7.3"
+    "typescript": "5.8.2"
   },
   "dependencies": {
     "pluralize": "8.0.0"
