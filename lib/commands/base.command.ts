@@ -1,8 +1,9 @@
-import chalk from 'chalk';
 import { Command } from 'commander';
+import { Logger } from '@nestjs/common';
 
 export abstract class BaseCommand {
     protected program: Command;
+    private logger = new Logger();
 
     abstract handle(): void;
 
@@ -11,18 +12,18 @@ export abstract class BaseCommand {
     }
 
     public success(message): void {
-        console.log(chalk.green(message));
+        this.logger.log(message);
     }
 
     public error(message): void {
-        console.log(chalk.red(message));
+        this.logger.error(message);
     }
 
     public info(message): void {
-        console.log(chalk.blue(message));
+        this.logger.log(message);
     }
 
     public warn(message): void {
-        console.log(chalk.yellow(message));
+        this.logger.warn(message);
     }
 }
