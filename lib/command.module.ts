@@ -14,7 +14,7 @@ import { RunCronJobsCommand } from './commands/run-cron-jobs.command';
 
 @Module({})
 export class CommandModule {
-    static register(isEnableTypeorm = true): DynamicModule {
+    static register(isEnableTypeorm = true, isEnableCronJob = true): DynamicModule {
         const providers: Provider[] = [
             CommandService,
             MakeCommandCommand,
@@ -24,12 +24,13 @@ export class CommandModule {
             MakeEntityCommand,
             MakeControllerCommand,
             MakeDtoCommand,
-            MakeRepositoryCommand,
-            ListCronJobsCommand,
-            RunCronJobsCommand
+            MakeRepositoryCommand
         ];
         if (isEnableTypeorm) {
             providers.push(MakeMigrationCommand);
+        }
+        if (isEnableCronJob) {
+            providers.push(ListCronJobsCommand, RunCronJobsCommand);
         }
         return {
             module: CommandModule,
