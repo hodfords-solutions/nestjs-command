@@ -1,6 +1,6 @@
 {
     "name": "@hodfords/nestjs-command",
-    "version": "11.0.9",
+    "version": "11.0.10",
     "description": "A utility for running CLI commands in NestJS apps",
     "main": "index.js",
     "scripts": {
@@ -50,13 +50,13 @@
         "typescript": "5.9.3"
     },
     "dependencies": {
-        "pluralize": "8.0.0"
+        "pluralize": "^8.0.0"
     },
     "peerDependencies": {
         "@nestjs/common": "*",
         "@nestjs/core": "*",
         "@nestjs/schedule": "*",
-        "commander": "13.1.0"
+        "commander": "*"
     },
     "optionalDependencies": {
         "typeorm": "*"
