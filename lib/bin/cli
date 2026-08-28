@@ -1,13 +1,23 @@
 #!/usr/bin/env node
-const fs = require('fs');
-const path = require('path');
+import fs from 'node:fs';
+import path from 'node:path';
+import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
+
+// The consumer's entry file may be TypeScript / CommonJS, so we still need a CJS
+// require to be able to register `ts-node` and load it. `createRequire` is the
+// ESM-safe way to do that.
+const require = createRequire(import.meta.url);
 
 function checkModuleExists(name) {
-    try { return require.resolve(name); }
-    catch (error) { return false; }
+    try {
+        return require.resolve(name);
+    } catch {
+        return false;
+    }
 }
 
-function bootstrap() {
+async function bootstrap() {
     const CLI_PATH = process.env.CLI_PATH || './src/cli.ts';
     const cli = path.resolve(process.cwd(), CLI_PATH);
 
@@ -17,12 +27,16 @@ function bootstrap() {
         return;
     }
     if (path.extname(cli) === '.ts') {
-        checkModuleExists('tsconfig-paths')
-            && require('tsconfig-paths').register();
-        checkModuleExists('ts-node')
-            && require('ts-node').register();
+        if (checkModuleExists('tsconfig-paths')) {
+            require('tsconfig-paths').register();
+        }
+        if (checkModuleExists('ts-node')) {
+            require('ts-node').register();
+        }
+        require(cli);
+        return;
     }
-    require(cli);
+    await import(pathToFileURL(cli).href);
 }
 
-bootstrap();
+await bootstrap();

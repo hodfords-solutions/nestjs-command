@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Command } from '../decorators/command.decorator';
-import { BaseCommand } from './base.command';
+import { Command } from '../decorators/command.decorator.js';
+import { BaseCommand } from './base.command.js';
 import { SchedulerRegistry } from '@nestjs/schedule';
 
 @Command({

@@ -2,7 +2,20 @@
     "name": "@hodfords/nestjs-command",
     "version": "11.0.10",
     "description": "A utility for running CLI commands in NestJS apps",
-    "main": "index.js",
+    "type": "module",
+    "main": "./index.js",
+    "types": "./index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./index.d.ts",
+            "import": "./index.js",
+            "default": "./index.js"
+        },
+        "./package.json": "./package.json"
+    },
+    "engines": {
+        "node": ">=20.19.0"
+    },
     "scripts": {
         "prebuild": "rimraf dist",
         "build": "tsc",
@@ -11,7 +24,10 @@
         "format": "prettier --write \"lib/**/*.ts\"",
         "cspell": "cspell",
         "lint": "eslint \"lib/**/*.ts\" --fix --max-warnings 0",
-        "lint-staged": "lint-staged"
+        "lint-staged": "lint-staged",
+        "test": "vitest run",
+        "test:watch": "vitest",
+        "test:cov": "vitest run --coverage"
     },
     "repository": {
         "type": "git",
@@ -30,8 +46,9 @@
     "devDependencies": {
         "@hodfords/nestjs-eslint-config": "11.0.2",
         "@hodfords/nestjs-prettier-config": "11.0.1",
-        "@nestjs/common": "11.1.12",
-        "@nestjs/core": "11.1.12",
+        "@nestjs/common": "12.0.1",
+        "@nestjs/core": "12.0.1",
+        "@swc/core": "^1.13.5",
         "@types/lodash": "4.17.23",
         "@types/node": "25.2.0",
         "cspell": "9.6.3",
@@ -46,15 +63,17 @@
         "rxjs": "7.8.2",
         "ts-node": "^10.9.2",
         "tsconfig-paths": "^4.2.0",
-        "typeorm": "^0.3.28",
-        "typescript": "5.9.3"
+        "typeorm": "1.1.0",
+        "typescript": "5.9.3",
+        "unplugin-swc": "^1.5.7",
+        "vitest": "^4.1.10"
     },
     "dependencies": {
         "pluralize": "^8.0.0"
     },
     "peerDependencies": {
-        "@nestjs/common": "*",
-        "@nestjs/core": "*",
+        "@nestjs/common": ">=12.0.0",
+        "@nestjs/core": ">=12.0.0",
         "@nestjs/schedule": "*",
         "commander": "*"
     },

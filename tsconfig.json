@@ -1,26 +1,21 @@
 {
     "compilerOptions": {
-      "module": "commonjs",
-      "moduleResolution": "node",
-      "esModuleInterop": true,
-      "declaration": true,
-      "removeComments": true,
-      "emitDecoratorMetadata": true,
-      "experimentalDecorators": true,
-      "allowSyntheticDefaultImports": true,
-      "target": "es2017",
-      "sourceMap": true,
-      "outDir": "dist",
-      "baseUrl": "./",
-      "incremental": true
+        "module": "nodenext",
+        "moduleResolution": "nodenext",
+        "target": "es2023",
+        "lib": ["es2023"],
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "declaration": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "removeComments": true,
+        "sourceMap": true,
+        "skipLibCheck": true,
+        "outDir": "dist",
+        "baseUrl": "./",
+        "incremental": true
     },
-    "include": [
-      "lib",
-    ],
-    "exclude": [
-      "tests",
-      "src",
-      "dist",
-      "node_modules"
-    ]
-  }
+    "include": ["lib"],
+    "exclude": ["tests", "test", "src", "sample", "dist", "node_modules"]
+}

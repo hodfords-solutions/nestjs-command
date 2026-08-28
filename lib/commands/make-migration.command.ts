@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { camelCase, difference, upperFirst } from 'lodash';
-import { resolve } from 'path';
+import lodash from 'lodash';
 import { DataSource } from 'typeorm';
-import { ColumnMetadata } from 'typeorm/metadata/ColumnMetadata';
-import { EntityMetadata } from 'typeorm/metadata/EntityMetadata';
-import { Command } from '../decorators/command.decorator';
-import { BaseMakeCommand } from './base-make.command';
+import { ColumnMetadata } from 'typeorm/metadata/ColumnMetadata.js';
+import { EntityMetadata } from 'typeorm/metadata/EntityMetadata.js';
+import { Command } from '../decorators/command.decorator.js';
+import { BaseMakeCommand, resolveStub } from './base-make.command.js';
+
+// `lodash` is CommonJS: named ESM imports are not detectable, so destructure the default export.
+const { camelCase, difference, upperFirst } = lodash;
 
 @Command({
     signature: 'make-migration <name>',
@@ -38,7 +40,7 @@ export class MakeMigrationCommand extends BaseMakeCommand {
     }
 
     public getStub(): string {
-        return resolve(__dirname, '../stubs/make-migration.stub');
+        return resolveStub('make-migration.stub');
     }
 
     public async handle(): Promise<void> {
