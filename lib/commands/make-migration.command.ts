@@ -1,13 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import lodash from 'lodash';
+import { camelCase, difference, upperFirst } from 'es-toolkit';
 import { DataSource } from 'typeorm';
 import { ColumnMetadata } from 'typeorm/metadata/ColumnMetadata.js';
 import { EntityMetadata } from 'typeorm/metadata/EntityMetadata.js';
 import { Command } from '../decorators/command.decorator.js';
 import { BaseMakeCommand, resolveStub } from './base-make.command.js';
-
-// `lodash` is CommonJS: named ESM imports are not detectable, so destructure the default export.
-const { camelCase, difference, upperFirst } = lodash;
 
 @Command({
     signature: 'make-migration <name>',

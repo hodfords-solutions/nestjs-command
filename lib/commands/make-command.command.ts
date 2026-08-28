@@ -1,10 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import lodash from 'lodash';
+import { startCase } from 'es-toolkit';
 import { Command } from '../decorators/command.decorator.js';
 import { BaseMakeCommand, resolveStub } from './base-make.command.js';
-
-// `lodash` is CommonJS: named ESM imports are not detectable, so destructure the default export.
-const { startCase } = lodash;
 
 @Command({
     signature: 'make-command <command>',

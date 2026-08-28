@@ -1,11 +1,8 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'fs';
-import lodash from 'lodash';
+import { camelCase, escapeRegExp, kebabCase, startCase, upperFirst } from 'es-toolkit';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { BaseCommand } from './base.command.js';
-
-// `lodash` is CommonJS: named ESM imports are not detectable, so destructure the default export.
-const { camelCase, escapeRegExp, kebabCase, startCase, upperFirst } = lodash;
 
 const currentDirectory = path.dirname(fileURLToPath(import.meta.url));
 
