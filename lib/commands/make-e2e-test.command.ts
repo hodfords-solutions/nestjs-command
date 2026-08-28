@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { resolve } from 'path';
-import { Command } from '../decorators/command.decorator';
-import { BaseMakeCommand } from './base-make.command';
+import { Command } from '../decorators/command.decorator.js';
+import { BaseMakeCommand, resolveStub } from './base-make.command.js';
 
 @Command({
     signature: 'make-e2e-test <name>',
@@ -16,7 +15,7 @@ import { BaseMakeCommand } from './base-make.command';
 @Injectable()
 export class MakeE2eTestCommand extends BaseMakeCommand {
     public getStub(): string {
-        return resolve(__dirname, '../stubs/modules/tests/e2e-spec.stub');
+        return resolveStub('modules/tests/e2e-spec.stub');
     }
 
     public handle(): void {

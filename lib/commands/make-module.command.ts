@@ -1,14 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { resolve } from 'path';
 import pluralize from 'pluralize';
-import { Command } from '../decorators/command.decorator';
-import { BaseMakeCommand } from './base-make.command';
-import { MakeControllerCommand } from './make-controller.command';
-import { MakeDtoCommand } from './make-dto.command';
-import { MakeE2eTestCommand } from './make-e2e-test.command';
-import { MakeEntityCommand } from './make-entity.command';
-import { MakeRepositoryCommand } from './make-repository.command';
-import { MakeServiceCommand } from './make-service.command';
+import { Command } from '../decorators/command.decorator.js';
+import { BaseMakeCommand, resolveStub } from './base-make.command.js';
+import { MakeControllerCommand } from './make-controller.command.js';
+import { MakeDtoCommand } from './make-dto.command.js';
+import { MakeE2eTestCommand } from './make-e2e-test.command.js';
+import { MakeEntityCommand } from './make-entity.command.js';
+import { MakeRepositoryCommand } from './make-repository.command.js';
+import { MakeServiceCommand } from './make-service.command.js';
 
 @Command({
     signature: 'make-module <name>',
@@ -28,7 +27,7 @@ export class MakeModuleCommand extends BaseMakeCommand {
     }
 
     public getStub(): string {
-        return resolve(__dirname, '../stubs/modules/module.stub');
+        return resolveStub('modules/module.stub');
     }
 
     get moduleName(): string {

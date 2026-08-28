@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { resolve } from 'path';
-import { Command } from '../decorators/command.decorator';
-import { BaseMakeCommand } from './base-make.command';
+import { Command } from '../decorators/command.decorator.js';
+import { BaseMakeCommand, resolveStub } from './base-make.command.js';
 
 @Command({
     signature: 'make-dto <name>',
@@ -16,7 +15,7 @@ import { BaseMakeCommand } from './base-make.command';
 @Injectable()
 export class MakeDtoCommand extends BaseMakeCommand {
     public getStub(): string {
-        return resolve(__dirname, '../stubs/modules/http/dto/dto.stub');
+        return resolveStub('modules/http/dto/dto.stub');
     }
 
     public handle(): void {

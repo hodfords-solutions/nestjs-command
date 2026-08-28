@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { resolve } from 'path';
-import { Command } from '../decorators/command.decorator';
-import { BaseMakeCommand } from './base-make.command';
+import { Command } from '../decorators/command.decorator.js';
+import { BaseMakeCommand, resolveStub } from './base-make.command.js';
 
 @Command({
     signature: 'make-service <name>',
@@ -16,7 +15,7 @@ import { BaseMakeCommand } from './base-make.command';
 @Injectable()
 export class MakeServiceCommand extends BaseMakeCommand {
     public getStub(): string {
-        return resolve(__dirname, '../stubs/modules/services/service.stub');
+        return resolveStub('modules/services/service.stub');
     }
 
     public handle(): void {

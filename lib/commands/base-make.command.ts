@@ -1,7 +1,17 @@
 import { mkdirSync, readFileSync, writeFileSync } from 'fs';
-import { camelCase, escapeRegExp, kebabCase, startCase, upperFirst } from 'lodash';
+import { camelCase, escapeRegExp, kebabCase, startCase, upperFirst } from 'es-toolkit';
 import path from 'path';
-import { BaseCommand } from './base.command';
+import { fileURLToPath } from 'url';
+import { BaseCommand } from './base.command.js';
+
+const currentDirectory = path.dirname(fileURLToPath(import.meta.url));
+
+/**
+ * Resolve a stub file shipped with the package, relative to the compiled `commands` directory.
+ */
+export function resolveStub(...segments: string[]): string {
+    return path.resolve(currentDirectory, '../stubs', ...segments);
+}
 
 export abstract class BaseMakeCommand extends BaseCommand {
     public content: string;

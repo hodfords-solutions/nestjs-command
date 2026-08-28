@@ -4,6 +4,17 @@
 
 <p align="center"> <b>nestjs-command</b> simplifies creating and managing CLI commands in NestJS applications. It offers an easy way to define and execute commands, streamlining CLI integration and boosting productivity with minimal configuration.</p>
 
+## Requirements 📋
+
+-   This package is **ESM-only**. Your project must be able to `import` it — CommonJS `require()` of it is not supported.
+-   Node.js `>= 20.19.0` (or `>= 22.12`, `>= 24.15`, `>= 26`).
+-   NestJS 12.
+
+| `@hodfords/nestjs-command` | NestJS |
+| -------------------------- | ------ |
+| `12.x`                     | `12.x` |
+| `11.x`                     | `11.x` |
+
 ## Installation 🤖
 
 Install the `nestjs-command` package with:
@@ -16,7 +27,7 @@ Set up in your codebase:
 
 -   `src/config/command.config.ts`
 
-```javascript
+```typescript
 import { CommandModule } from '@hodfords/nestjs-command';
 
 export const commandConfig = CommandModule.register();
@@ -26,7 +37,7 @@ export const commandConfig = CommandModule.register();
 
 -   `src/app.module.ts`
 
-```javascript
+```typescript
 import { Module } from '@nestjs/common';
 import { commandConfig } from '~config/command.config';
 
@@ -40,7 +51,7 @@ export class AppModule {}
 
 -   `src/cli.ts`
 
-```javascript
+```typescript
 import { NestFactory } from '@nestjs/core';
 import { CommandService } from '@hodfords/nestjs-command';
 import { commandConfig } from '~config/command.config';
