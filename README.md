@@ -72,6 +72,8 @@ bootstrap();
 "wz-command": "wz-command"
 ```
 
+The entry file is resolved from `CLI_PATH` (default `./src/cli.ts`), relative to the directory you run the command from. When the entry is a TypeScript file, install `ts-node` (or `tsx`) in your application: it is registered as an ESM loader for projects with `"type": "module"`, and through `ts-node/register` plus `tsconfig-paths` for CommonJS projects.
+
 ## Usage 🚀
 
 Here’s how you can use them. For each type of component, you can use one of the two available command formats: with `npm run` or directly with `wz-command`
