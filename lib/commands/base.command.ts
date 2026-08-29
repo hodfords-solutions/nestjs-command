@@ -11,19 +11,19 @@ export abstract class BaseCommand {
         return this.program.args;
     }
 
-    public success(message): void {
+    public success(message: unknown): void {
         this.logger.log(message);
     }
 
-    public error(message): void {
+    public error(message: unknown): void {
         this.logger.error(message);
     }
 
-    public info(message): void {
+    public info(message: unknown): void {
         this.logger.log(message);
     }
 
-    public warn(message): void {
+    public warn(message: unknown): void {
         this.logger.warn(message);
     }
 }

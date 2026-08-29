@@ -1,7 +1,8 @@
 import { Global, Injectable } from '@nestjs/common';
 import { ModulesContainer } from '@nestjs/core';
 import { Command } from 'commander';
-import { COMMAND_KEY } from './decorators/command.decorator.js';
+import { COMMAND_KEY, CommandOption } from './decorators/command.decorator.js';
+import { BaseCommand } from './commands/base.command.js';
 
 @Global()
 @Injectable()
@@ -19,17 +20,21 @@ export class CommandService {
                 }
                 const meta = Reflect.getMetadata(COMMAND_KEY, instance.constructor);
                 if (meta) {
-                    this.addCommand(program, instance, meta);
+                    this.addCommand(program, instance as BaseCommand, meta);
                 }
             }
         }
         await program.parseAsync();
     }
 
-    public addCommand(program, instance, meta): void {
+    public addCommand(program: Command, instance: BaseCommand, meta: CommandOption): void {
         const commandBuilder = new Command().command(meta.signature);
         if (meta.description) {
-            commandBuilder.description(meta.description, meta.params);
+            if (meta.params) {
+                commandBuilder.description(meta.description, meta.params);
+            } else {
+                commandBuilder.description(meta.description);
+            }
         }
         if (meta.options) {
             for (const option of meta.options) {
@@ -43,12 +48,13 @@ export class CommandService {
             }
         }
 
-        for (const param of Object.keys(meta.params || {})) {
-            commandBuilder.addHelpCommand(new Command(param).description(meta.params[param]));
+        const params = meta.params ?? {};
+        for (const param of Object.keys(params)) {
+            commandBuilder.addHelpCommand(new Command(param).description(params[param]));
         }
 
         commandBuilder.action(async () => {
-            instance.program = commandBuilder;
+            (instance as unknown as { program: Command }).program = commandBuilder;
             await instance.handle();
             process.exit();
         });
