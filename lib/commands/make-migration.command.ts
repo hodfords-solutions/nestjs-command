@@ -119,7 +119,7 @@ export class MakeMigrationCommand extends BaseMakeCommand {
     private generateAddNewColumnContent(columns: ColumnMetadata[], entity: EntityMetadata): string[] {
         const data = [];
         for (const column of columns) {
-            delete column.entityMetadata;
+            delete (column as { entityMetadata?: EntityMetadata }).entityMetadata;
 
             if (column.isPrimary && column.isGenerated) {
                 data.push(`table.primaryUuid('${column.propertyName}');`);

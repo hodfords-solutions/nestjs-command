@@ -15,10 +15,10 @@ export function resolveStub(...segments: string[]): string {
 
 export abstract class BaseMakeCommand extends BaseCommand {
     public content: string;
-    private customArgs = null;
-    private customOptions = null;
+    private customArgs: string[] | null = null;
+    private customOptions: (object & { module?: string }) | null = null;
 
-    abstract getStub();
+    abstract getStub(): string;
 
     public getContent(): void {
         this.content = readFileSync(this.getStub()).toString();
@@ -56,9 +56,9 @@ export abstract class BaseMakeCommand extends BaseCommand {
         return this.customOptions || this.program.opts();
     }
 
-    public runWith(args: object = undefined, opts: object = undefined): void {
-        this.customArgs = args;
-        this.customOptions = opts;
+    public runWith(args?: string[], opts?: object & { module?: string }): void {
+        this.customArgs = args ?? null;
+        this.customOptions = opts ?? null;
         return this.handle();
     }
 
