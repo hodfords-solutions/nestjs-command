@@ -27,6 +27,14 @@ function checkModuleExists(name) {
     }
 }
 
+// Whether `name` is installed anywhere on the consumer's resolution path. Unlike
+// `require.resolve('<name>/package.json')`, this does not depend on the package's
+// `exports` map exposing `./package.json` — `@swc-node/register` does not.
+function checkPackageInstalled(name) {
+    const searchPaths = require.resolve.paths(name) ?? [];
+    return searchPaths.some((dir) => fs.existsSync(path.join(dir, name, 'package.json')));
+}
+
 function isEsmProject() {
     try {
         return JSON.parse(fs.readFileSync(appEntry, 'utf8')).type === 'module';
@@ -37,7 +45,7 @@ function isEsmProject() {
 
 function registerTsEsmLoader() {
     for (const loader of TS_ESM_LOADERS) {
-        if (!checkModuleExists(`${loader.name}/package.json`)) {
+        if (!checkPackageInstalled(loader.name)) {
             continue;
         }
         register(loader.specifier, appEntryUrl);
@@ -62,7 +70,7 @@ async function bootstrap() {
             // CJS resolver, so an ESM project needs a loader hook plus a dynamic import.
             if (!registerTsEsmLoader()) {
                 console.error(
-                    `Cannot run ${cli}: install ts-node (or tsx) to execute a TypeScript entry file in an ESM project.`
+                    `Cannot run ${cli}: install ts-node, tsx or @swc-node/register to execute a TypeScript entry file in an ESM project.`
                 );
                 process.exitCode = 1;
                 return;
